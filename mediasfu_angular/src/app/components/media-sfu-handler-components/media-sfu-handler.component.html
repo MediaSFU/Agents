@@ -1,0 +1,11 @@
+<div *ngIf="noUIOptions | async as options" style="width: 0; height: 0; max-height: 0; max-width: 0; overflow: hidden">
+  <app-mediasfu-generic
+  [PrejoinPage]="PreJoinPage"
+  [sourceParameters]="options.sourceParameters"
+  [updateSourceParameters]="options.updateSourceParameters"
+  [noUIPreJoinOptions]="finalOptions.value!"
+  [connectMediaSFU]="true"
+  [returnUI]="false"
+  [credentials]="credentials"
+  ></app-mediasfu-generic>
+</div>

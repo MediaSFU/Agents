@@ -1,0 +1,20 @@
+<div class="modal-overlay" *ngIf="isOpen">
+  <div class="modal-content" #modal (pointerdown)="onPointerDown($event)">
+    <div class="modal-header">
+      <app-audio-level-bars [audioLevel]="audioLevel"></app-audio-level-bars>
+
+    </div>
+    <div class="modal-body">
+      <video
+        #videoElement
+        autoplay
+        muted
+        playsinline
+        [ngStyle]="{ display: videoStream ? 'flex' : 'none' }"
+      ></video>
+      <div *ngIf="!hasVideoFeed || !videoStream" class="placeholder-video">
+        <p>No video feed available</p>
+      </div>
+    </div>
+  </div>
+</div>

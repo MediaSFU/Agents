@@ -1,0 +1,17 @@
+<div class="audio-visualizer-card">
+  <h3>Audio Visualizer</h3>
+  <div class="audio-visualizer">
+    <div
+      class="bar"
+      *ngFor="let barHeight of bars"
+      [ngStyle]="{
+        'height': barHeight + 'px',
+        'background-color': 'rgb('
+          + (255 - (barHeight / 225) * 255)
+          + ','
+          + ((barHeight / 225) * 255)
+          + ',0)'
+      }"
+    ></div>
+  </div>
+</div>

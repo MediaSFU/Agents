@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["dom", "es2017"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "strict": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es2017",
+    "noImplicitAny": true,
+    "jsx": "react-native",
+    "baseUrl": "./",
+    "paths": {
+      "webrtc/webrtc": [
+        "components/custom/webrtc/webrtc",
+        "components/custom/webrtc/webrtc.web",
+        "components/custom/webrtc/webrtc.ios",
+        "components/custom/webrtc/webrtc.android"
+      ],
+    }
+  },
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
+  "types": ["react", "react-native"],
+  "typeRoots": ["node_modules/@types", "types"]
+}

@@ -1,0 +1,11 @@
+<div class="bars-container">
+  <div
+    class="bar"
+    *ngFor="let filled of bars; let i = index"
+    [ngStyle]="{
+      'background-color': filled
+        ? 'rgb(' + (255 - i * 20) + ',' + (i * 20) + ',0)'
+        : '#ccc'
+    }"
+  ></div>
+</div>

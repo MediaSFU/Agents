@@ -1,0 +1,156 @@
+<div class="container">
+  <!-- ============ Header Bar ============ -->
+  <div class="header-bar">
+    <div class="header-left">
+      <h1>MediaSFU AI Agent</h1>
+    </div>
+    <div class="header-right">
+      <div class="status-indicator">
+        <span [class]="connectedClass"></span>
+        <span [class]="statusTextClass">{{ roomConnected ? "active" : "inactive" }}</span>
+      </div>
+
+      <!-- Dark Mode Toggle -->
+      <button
+        (click)="toggleDarkMode()"
+        class="darkModeToggle"
+        title="Toggle Dark Mode"
+        aria-label="Toggle Dark Mode"
+      >
+        <fa-icon [icon]="isDarkMode ? faSun : faMoon"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ MediaSFUHandler ============ -->
+  <div *ngIf="showRoomDetails.value" class="media-sfu-handler">
+    <app-media-sfu-handler
+      [options]="showRoomDetails.value!"
+    ></app-media-sfu-handler>
+  </div>
+
+  <!-- ============ Main Content ============ -->
+  <div class="content">
+    <!-- Left Column: Transcript + Chat -->
+    <div class="leftColumn">
+      <div class="audioCard">
+        <h2>Transcript</h2>
+        <div class="transcriptBox">
+          {{ transcript || "No speech detected." }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Audio Visualizer -->
+    <div class="rightColumn">
+      <div *ngIf="showChat" class="chatCard">
+        <h2>Chat</h2>
+        <div class="chatBox" #chatBox>
+          <div
+            *ngFor="let msg of chatMessages"
+            [ngClass]="getChatBubbleClass(msg.sender)"
+            class="chatMessage"
+          >
+            <strong>{{ msg.sender }}:</strong> {{ msg.message }}
+          </div>
+        </div>
+      </div>
+      <app-audio-visualizer [animate]="animate"></app-audio-visualizer>
+    </div>
+  </div>
+
+  <!-- ============ Self-View Modal ============ -->
+  <app-custom-modal
+    [isOpen]="isModalOpen"
+    (onClose)="toggleModal()"
+    [videoStream]="localStream!"
+    [audioLevel]="audioLevel"
+    [hasVideoFeed]="videoOn"
+  ></app-custom-modal>
+
+  <!-- ============ Bottom Bar ============ -->
+  <div class="bottomBar">
+    <!-- Toggle Mic -->
+    <button
+      (click)="toggleMic()"
+      [disabled]="isAudioPlaying"
+      [ngClass]="{ iconButton: true, active: micOn, inactive: !micOn }"
+      [attr.aria-pressed]="micOn"
+      title="{{ micOn ? 'Turn Mic Off' : 'Turn Mic On' }}"
+    >
+      <fa-icon [icon]="micOn ? faMicrophone : faMicrophoneSlash"></fa-icon>
+    </button>
+
+    <!-- Toggle Camera -->
+    <button
+      (click)="toggleCamera()"
+      [disabled]="isAudioPlaying"
+      [ngClass]="{ iconButton: true, active: videoOn, inactive: !videoOn }"
+      [attr.aria-pressed]="videoOn"
+      title="{{ videoOn ? 'Turn Video Off' : 'Turn Video On' }}"
+    >
+      <fa-icon [icon]="videoOn ? faVideo : faVideoSlash"></fa-icon>
+    </button>
+
+    <!-- Swap Camera -->
+    <button
+      *ngIf="videoOn"
+      class="toggle-cam-btn"
+      (click)="swapCamera()"
+      title="Switch Camera"
+    >
+      <fa-icon [icon]="faSyncAlt"></fa-icon>
+      <span>Cam</span>
+    </button>
+
+    <!-- Camera Dropdown -->
+    <div *ngIf="videoOn && videoInputs.length > 1" class="cam-controls">
+      <fa-icon [icon]="faCamera"></fa-icon>
+      <select
+        [(ngModel)]="selectedVideoInput"
+        (change)="onVideoInputChange($event)"
+      >
+        <option *ngFor="let input of videoInputs" [value]="input.deviceId">
+          {{ input.label || "Camera" }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Self-View Modal Toggle -->
+    <button
+      (click)="toggleModal()"
+      class="iconButton self-view-button"
+      aria-label="Toggle Self Video"
+      title="Toggle Self Video"
+    >
+      <fa-icon [icon]="isModalOpen ? faEyeSlash : faEye"></fa-icon>
+    </button>
+
+    <!-- Toggle Chat -->
+    <button
+      (click)="toggleChat()"
+      class="iconButton"
+      title="Toggle Chat"
+      aria-label="Toggle Chat"
+    >
+      <fa-icon [icon]="showChat ? faCommentSlash : faComments"></fa-icon>
+    </button>
+
+    <!-- Toggle AEC -->
+    <button
+      (click)="toggleAEC()"
+      class="iconButton"
+      title="Toggle AEC"
+      aria-label="Toggle AEC"
+    >
+      <fa-icon [icon]="doAEC ? faDeaf : faAssistiveListeningSystems"></fa-icon>
+    </button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div *ngIf="toast" class="toast-container">
+    <div class="toast" [ngClass]="toastType">
+      {{ toast }}
+    </div>
+  </div>
+</div>

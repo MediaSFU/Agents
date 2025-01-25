@@ -1,0 +1,85 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.modal-content {
+  position: absolute;
+  background: var(--card-background);
+  box-shadow: var(--inset-light);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  cursor: grab;
+}
+
+.modal-content.draggable {
+  cursor: move;
+}
+
+.modal-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.placeholder-video {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+  color: #777;
+  font-size: 0.9em;
+  text-align: center;
+  border-radius: 60px;
+}
+
+.self-video.hidden {
+  display: none;
+}
+
+.self-video {
+  width: 100%;
+  height: 75%;
+  border-radius: 50px;
+  object-fit: cover;
+  display: block;
+}
+
+.audio-bars-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 20%;
+}
+
+.audio-bar {
+  width: 8%;
+  height: 100%;
+  background-color: #ccc;
+  transition: height 0.2s ease;
+}
+
+.audio-bar.filled {
+  background-color: rgb(0, 200, 0); /* Default active color */
+}
