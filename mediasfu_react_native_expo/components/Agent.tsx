@@ -367,14 +367,14 @@ const App: React.FC = () => {
           showToast("Connected to the agent room!", "success");
 
           // Setup pipeline events
-          // socket.current!.on(
+          // socket.current?.on(
           //   'audio',
           //   ({audioBuffer}: {audioBuffer: string}) => {
           //     playQueuedBase64(audioBuffer);
           //   },
           // );
 
-          socket.current!.on("pipelineResult", (data: any) => {
+          socket.current?.on("pipelineResult", (data: any) => {
             if (data.text) {
               // Agent's text
               setChatMessages((prev) => [
@@ -391,7 +391,7 @@ const App: React.FC = () => {
             }
           });
 
-          socket.current!.on("pipelineResultVision", (data: any) => {
+          socket.current?.on("pipelineResultVision", (data: any) => {
             if (data.text) {
               setChatMessages((prev) => [
                 ...prev,
@@ -403,15 +403,15 @@ const App: React.FC = () => {
             }
           });
 
-          socket.current!.on("pipelineError", (data: any) => {
+          socket.current?.on("pipelineError", (data: any) => {
             showToast(`Voice pipeline error: ${data.error}`, "error");
           });
 
-          socket.current!.on("pipelineErrorVision", (data: any) => {
+          socket.current?.on("pipelineErrorVision", (data: any) => {
             showToast(`Vision pipeline error: ${data.error}`, "error");
           });
 
-          socket.current!.on("disconnect", () => {
+          socket.current?.on("disconnect", () => {
             roomConnected.current = false;
             showToast("Disconnected from the agent room.", "info");
 

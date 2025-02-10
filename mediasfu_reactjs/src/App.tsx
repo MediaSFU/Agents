@@ -419,10 +419,10 @@ const App: React.FC = () => {
         }
         showToast("Connected to the agent room!", "success");
 
-        socket.current!.on("image", ({ jpegBuffer }) => {});
-        socket.current!.on("audio", ({ audioBuffer }) => {});
-        socket.current!.on("silenceDetected", ({ silent }) => {});
-        socket.current!.on("pipelineResult", (data) => {
+        socket.current?.on("image", ({ jpegBuffer }) => {});
+        socket.current?.on("audio", ({ audioBuffer }) => {});
+        socket.current?.on("silenceDetected", ({ silent }) => {});
+        socket.current?.on("pipelineResult", (data) => {
           // pipeline events for LLM text, TTS audio, etc.
           if (data.text) {
             setChatMessages((prev) => [
@@ -437,7 +437,7 @@ const App: React.FC = () => {
             playQueuedBase64(data.audio);
           }
         });
-        socket.current!.on("pipelineResultVision", (data) => {
+        socket.current?.on("pipelineResultVision", (data) => {
           if (data.text) {
             setChatMessages((prev) => [
               ...prev,
@@ -449,14 +449,14 @@ const App: React.FC = () => {
           }
         });
 
-        socket.current!.on("pipelineError", (data) => {
+        socket.current?.on("pipelineError", (data) => {
           showToast(`Voice pipeline error: ${data.error}`, "error");
         });
 
-        socket.current!.on("pipelineErrorVision", (data) => {
+        socket.current?.on("pipelineErrorVision", (data) => {
           showToast(`Vision pipeline error: ${data.error}`, "error");
         });
-        socket.current!.on("disconnect", () => {
+        socket.current?.on("disconnect", () => {
           roomConnected.current = false;
           setChatMessages((prev) => [
             ...prev,
@@ -519,7 +519,7 @@ const App: React.FC = () => {
     if (socket.current && agentRoom.current && socket.current?.id) {
       socket.current.on("startBuffers", () => {
         console.log("Buffers started");
-        socket.current!.emit(
+        socket.current?.emit(
           "startBuffer",
           { roomName: agentRoom.current, member: "agent" },
           (response: any) => {
