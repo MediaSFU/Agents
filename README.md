@@ -61,9 +61,9 @@ Explore the MediaSFU Agents demo live at [**agents.mediasfu.com**](https://agent
   Experiment with more advanced features like custom STT, TTS, and LLM providers without needing API keys.
 - **[Playground](https://agents.mediasfu.com/playground)**  
   Test advanced configurations—custom TTS, STT, multiple LLMs, and ephemeral key setups.
-- **[Providers](https://agents.mediasfu.com/providers)**  
+- **[Preconfigured Providers](#providers--configuration)**
   View detailed information on supported STT, LLM, and TTS providers.
-- **[Configuration Guide](https://agents.mediasfu.com/config-guide)**  
+- **[Configuration Guide](#ephemeral-vs-dashboard-credentials)**  
   Learn how to set up ephemeral keys, dashboard credentials, and customize your pipelines.
 
 > **Note:**  
